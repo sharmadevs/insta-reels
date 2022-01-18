@@ -1,11 +1,14 @@
+import { ImageSourcePropType } from "react-native";
+
 interface APPIMAGEURLS {
-    mute: string;
-    volume: string;
-    more: string;
-    heart: string;
-    comment: string;
-    share: string;
-    user: string;
+    mute: ImageSourcePropType;
+    volume: ImageSourcePropType;
+    more: ImageSourcePropType;
+    heart: ImageSourcePropType;
+    comment: ImageSourcePropType;
+    share: ImageSourcePropType;
+    user: ImageSourcePropType;
+    splash:ImageSourcePropType
 }
 const APPIMAGEURL: APPIMAGEURLS = {
     mute: require('../assets/Icons/mute.png'),
@@ -14,6 +17,7 @@ const APPIMAGEURL: APPIMAGEURLS = {
     heart: require('../assets/Icons/heart.png'),
     comment: require('../assets/Icons/comment.png'),
     share: require('../assets/Icons/share.png'),
-    user: require('../assets/user.jpeg'),
+    user: require('../assets/user.webp'),
+    splash: require('../assets/insta-splash.png'),
 }
 export default APPIMAGEURL;

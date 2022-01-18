@@ -1,0 +1,79 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "post": {
+                "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            },
+            "user": {
+                "userId": 1,
+                "name": "Devendra Sharma",
+                "isFollowing": false
+            },
+            "comment": 101,
+            "like": "121.3 k",
+            "likeStatus": true,
+            "postText": "React Native reels with actions shown in this project"
+        },
+        {
+            "id": 2,
+            "post": {
+                "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+            },
+            "user": {
+                "userId": 2,
+                "name": "Dheeraj Gill",
+                "isFollowing": true
+            },
+            "comment": 100,
+            "like": "10.3 k",
+            "likeStatus": false,
+            "postText": "React Native reels with actions shown in this project"
+        },
+        {
+            "id": 3,
+            "post": {
+                "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+            },
+            "user": {
+                "userId": 3,
+                "name": "Sachin Kumawat",
+                "isFollowing": false
+            },
+            "comment": 10,
+            "like": "121",
+            "likeStatus": true,
+            "postText": "React Native reels with actions shown in this project"
+        },
+        {
+            "id": 4,
+            "post": {
+                "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+            },
+            "user": {
+                "userId": 4,
+                "name": "Sunil Kumar",
+                "isFollowing": true
+            },
+            "comment": 300,
+            "like": "150.3 ",
+            "likeStatus": false,
+            "postText": "React Native reels with actions shown in this project"
+        },
+        {
+            "id": 5,
+            "post": {
+                "url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+            },
+            "user": {
+                "userId": 5,
+                "name": "Devendra Sharma",
+                "isFollowing": false
+            },
+            "comment": 320,
+            "like": "121.3 k",
+            "likeStatus": true,
+            "postText": "React Native reels with actions shown in this project"
+        }
+    ]
+}

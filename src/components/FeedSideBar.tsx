@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import {
   View,
   Animated,
@@ -6,11 +6,13 @@ import {
   Image,
   Text,
   StyleSheet,
+  Share,
+  Alert,
 } from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {AppContext} from '../context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AppContext } from '../context';
 import APPIMAGEURL from '../theme/Imges';
-import {width} from '../utils/Constant';
+import { width } from '../utils/Constant';
 
 const styles = StyleSheet.create({
   icon: {
@@ -40,10 +42,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const RenderIcon = ({obj, onPress, exStyle = {}}:any) => {
-  const {appTheme} = useContext(AppContext);
-  const {iconOuter, center, icon, text} = styles;
-  const {type, imageIcon, size = 30, disText} = obj;
+const RenderIcon = ({ obj, onPress, exStyle = {} }: any) => {
+  const { appTheme }: any = useContext(AppContext);
+  const { iconOuter, center, icon, text } = styles;
+  const { type, imageIcon, size = 30, disText } = obj;
 
   return (
     <TouchableOpacity
@@ -65,7 +67,7 @@ const RenderIcon = ({obj, onPress, exStyle = {}}:any) => {
           resizeMode={'contain'}
         />
         {(disText && (
-          <Text style={[text, {color: appTheme?.tint}]}>{`${disText}`}</Text>
+          <Text style={[text, { color: appTheme?.tint }]}>{`${disText}`}</Text>
         )) ||
           null}
       </View>
@@ -73,16 +75,33 @@ const RenderIcon = ({obj, onPress, exStyle = {}}:any) => {
   );
 };
 
-const FeedSideBar = ({item, animation}:any) => {
-  const {appTheme} = useContext(AppContext);
-  //console.log("appTheme",appTheme);
-  
+const FeedSideBar = ({ item, animation }: any) => {
+  const { appTheme } = useContext(AppContext);
   const insets = useSafeAreaInsets();
-  const {sideBar} = styles;
-  const {like, comment, likeStatus} = item;
-
+  const { sideBar } = styles;
+  const { like, comment, likeStatus,post:{url} } = item;
+  
   const makeAction = async (type: any) => {
-    // Here perfom feed action based on Type
+    if (type === "Share") {
+      try {
+        const result = await Share.share({
+          message:url,
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error: any) {
+        Alert.alert(error.message);
+      }
+
+    }
+
   };
 
   return (
@@ -101,23 +120,23 @@ const FeedSideBar = ({item, animation}:any) => {
           size: 35,
           type: 'Like',
         }}
-        exStyle={{tintColor: (likeStatus && appTheme?.red) || appTheme?.tint}}
+        exStyle={{ tintColor: (likeStatus && appTheme?.red) || appTheme?.tint }}
         onPress={makeAction}
       />
       <RenderIcon
-        obj={{imageIcon: APPIMAGEURL.comment, disText: comment, type: 'Comment'}}
+        obj={{ imageIcon: APPIMAGEURL.comment, disText: comment, type: 'Comment' }}
         onPress={makeAction}
       />
       <RenderIcon
-        obj={{imageIcon: APPIMAGEURL.share, type: 'Share'}}
+        obj={{ imageIcon: APPIMAGEURL.share, type: 'Share' }}
         onPress={makeAction}
       />
       <RenderIcon
-        obj={{imageIcon: APPIMAGEURL.more, size: 35, type: 'More'}}
+        obj={{ imageIcon: APPIMAGEURL.more, size: 35, type: 'More' }}
         onPress={makeAction}
       />
     </Animated.View>
   );
 };
 
-export {FeedSideBar};
+export { FeedSideBar };

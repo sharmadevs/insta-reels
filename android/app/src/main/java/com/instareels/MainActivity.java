@@ -1,4 +1,4 @@
-package com.instareels;
+package com.it.instareels;
 
 import com.facebook.react.ReactActivity;
 

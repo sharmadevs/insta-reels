@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "174617055432",
+    "firebase_url": "https://insta-reels-dfab5-default-rtdb.firebaseio.com",
+    "project_id": "insta-reels-dfab5",
+    "storage_bucket": "insta-reels-dfab5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174617055432:android:df3143898223cdc9dfd5fd",
+        "android_client_info": {
+          "package_name": "com.it.instareels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174617055432-m9236t9b42ghrvf9svpivii2meq6pu5f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMev1fJkkN0ZloY2mv23tjJRcQ4d5Hj6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174617055432-m9236t9b42ghrvf9svpivii2meq6pu5f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "174617055432-mim0funar7qmgjcn6gvulng3qa0547ao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.it.instaReels"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

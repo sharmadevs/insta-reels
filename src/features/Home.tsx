@@ -1,19 +1,20 @@
-import React, {useState, useRef, useContext} from 'react';
-import {View, Animated} from 'react-native';
+import React, { useState, useRef, useContext, useEffect } from 'react';
+import { View, Animated, FlatList, StatusBar } from 'react-native';
 import { FeedRow } from '../components';
-import {AppContext} from '../context';
+import { AppContext } from '../context';
 import CommonStyle from '../theme/CommonStyle';
-import {height, isIOS} from '../utils/Constant';
-import {data} from '../utils/data';
-
+import { height, isIOS } from '../utils/Constant';
+import database from '@react-native-firebase/database';
+import FirebaseInstance from '../utils/FirebaseDatabase';
 const Home = () => {
-  const {displayHeight, setDisplayHeight} = useContext(AppContext);
-  const refFlatList = useRef();
+  const { displayHeight, setDisplayHeight }: any = useContext(AppContext);
+  const refFlatList = useRef<Animated.FlatList>();
   const [scrollY] = useState(new Animated.Value(0));
-  const [scrollInfo, setScrollInfo] = useState({isViewable: true, index: 0});
+  const [scrollInfo, setScrollInfo] = useState({ isViewable: true, index: 0 });
+  const [flatlistData, setFlatListData] = useState([])
 
-  const viewabilityConfig = {viewAreaCoveragePercentThreshold: 80};
-  const onViewableItemsChanged = useRef(viewableItems => {
+  const viewabilityConfig = { viewAreaCoveragePercentThreshold: 80 };
+  const onViewableItemsChanged = useRef((viewableItems: { changed: { index: any; }[]; }) => {
     const info = {
       isViewable: viewableItems.changed[0].isViewable,
       index: viewableItems.changed[0].index,
@@ -37,13 +38,13 @@ const Home = () => {
     };
   };
 
-  const getItemLayout = (item, index) => ({
+  const getItemLayout = (item: any, index: number) => ({
     length: displayHeight,
     offset: displayHeight * index,
     index,
   });
 
-  const onLayout = ({nativeEvent}) => {
+  const onLayout = ({ nativeEvent }: any) => {
     setDisplayHeight((!isIOS && nativeEvent.layout.height) || height);
   };
 
@@ -51,13 +52,22 @@ const Home = () => {
     // make api call here
   };
 
-  const keyExtractor = (item, index) => {
+  const keyExtractor = (item: { id: any; }, index: any) => {
     return `${item.id}`;
   };
 
-  const renderItem = ({item, index}) => {
-    const scrollIndex = scrollInfo?.index || 0;
-    const isNext = index >= scrollIndex - 1 && index <= scrollIndex + 1;
+  const renderItem = ({ item, index }: any) => {
+    var scrollIndex = scrollInfo?.index || 0;
+    var isNext = index >= scrollIndex - 1 && index <= scrollIndex + 1;
+    const onProgress = (videoObj: any) => {
+      var progress = parseInt(videoObj.currentTime)
+      if (progress >= 30) {
+      
+
+      } else {
+        
+      }
+    }
     return (
       <FeedRow
         item={item}
@@ -66,11 +76,25 @@ const Home = () => {
         transitionAnimation={transitionAnimation}
         visible={scrollInfo}
         isVisible={scrollIndex === index}
+        onProgress={(e: any) =>{}
+        }
       />
     );
   };
 
+  useEffect(() => {
+    getFirebaseData()
+  }, [])
+  const getFirebaseData = async () => {
+    var reels = await FirebaseInstance.getData();
+    var newObj = JSON.stringify(reels);
+    var element = JSON.parse(newObj)
+    setFlatListData(element);
+  }
+
   return (
+    <>
+    <StatusBar translucent backgroundColor="transparent" />
     <View style={CommonStyle.flexContainer} onLayout={onLayout}>
       <Animated.FlatList
         pagingEnabled
@@ -82,14 +106,14 @@ const Home = () => {
         onScroll={Animated.event(
           [
             {
-              nativeEvent: {contentOffset: {y: scrollY}},
+              nativeEvent: { contentOffset: { y: scrollY } },
             },
           ],
           {
             useNativeDriver: false,
           },
         )}
-        data={data}
+        data={flatlistData}
         renderItem={renderItem}
         getItemLayout={getItemLayout}
         keyExtractor={keyExtractor}
@@ -98,6 +122,7 @@ const Home = () => {
         removeClippedSubviews={true}
       />
     </View>
+    </>
   );
 };
 
